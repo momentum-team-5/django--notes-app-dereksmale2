@@ -4,7 +4,7 @@
 <h1>Edit Note</h1>
 
 <div>
-    <form action="{% url 'edit_note' pk=contact.pk %}" method="POST">
+    <form action="{% url 'edit_note' pk=note.pk %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <div>

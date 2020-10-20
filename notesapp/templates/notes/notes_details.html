@@ -1,21 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ note.name }}</h1>
+<h1>{{ note.title }}</h1>
 
 <div class="flex flex-wrap">
 <div class="w-33 pa3">
-    <h2>{{ note.name }}</h2>
+    <h2>{{ note.title }}</h2>
 
-    {% if note %}
-    <div class="flex">
-        <p>{{ note.body }}</p>
-        <p><em>On</em>({{ note.timestamp }})</p>
-    </div>
-    {% endif %}
-
-    <p>
-    </p>
     </div>
 </div>  
 

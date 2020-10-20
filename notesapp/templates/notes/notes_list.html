@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>All Contacts</h1>
+<h1>All Notes</h1>
 
-<p><a href="{% url 'add_contact' %}">Add New Contact</a></p>
+<p><a href="{% url 'add_note' %}">Add New Note</a></p>
 
 <div class="flex flex-wrap">
-{% for contact in contacts %}
+{% for note in notes %}
 <div class="w-33 pa3">
     <h2>{{ note.name }}</h2>
 
@@ -25,10 +25,9 @@
     {% endif %}
 
     <p>
-        <a href="{% url 'edit_note' pk=contact.pk %}">Edit Note</a><br>    
-        <a class="red" href="{% url 'delete_note' pk=contact.pk %}">Delete Note</a><br>
-        <a href="{% url 'notes_details' pk=contact.pk %}">More Information</a><br>
-        <a href="{% url 'add_note' pk=contact.pk %}">Add Note</a>
+        <a href="{% url 'edit_note' pk=note.pk %}">Edit Note</a><br>    
+        <a class="red" href="{% url 'delete_note' pk=note.pk %}">Delete Note</a><br>
+        <a href="{% url 'notes_details' pk=note.pk %}">More Information</a><br>
     </p>
 </div>
 {% endfor %}

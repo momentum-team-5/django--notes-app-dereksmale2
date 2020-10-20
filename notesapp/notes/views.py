@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Note
+from .forms import NoteForm
 
 
 def notes_list(request):
@@ -8,7 +9,7 @@ def notes_list(request):
     return render(request, "notes/notes_list.html", {"notes": notes})
 
 
-def notes_detail(request, pk):
+def notes_details(request, pk):
     note = get_object_or_404(Note, pk=pk)
     note_filter = Note.objects.filter(note=note)
 
@@ -45,15 +46,13 @@ def edit_note(request, pk):
             form.save()
             return redirect(to='notes_list')
 
-    return render(request, "notes.edit_note.html", {"form": form, "note": note})
+    return render(request, "notes/edit_note.html", {"form": form, "note": note})
 
 
 def delete_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
     if request.method == 'POST':
-        contact.delete()
+        note.delete()
         return redirect(to='notes_list')
 
     return render(request, "notes/delete_note.html", {"note": note})
-
-
