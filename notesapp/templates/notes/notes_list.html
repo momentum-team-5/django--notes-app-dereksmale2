@@ -6,31 +6,31 @@
 <p><a href="{% url 'add_note' %}">Add New Note</a></p>
 
 <div class="flex flex-wrap">
-{% for note in notes %}
-<div class="w-33 pa3">
-    <h2>{{ note.name }}</h2>
+    {% for note in notes %}
+    <div class="w-33 pa3">
+        <h2>{{ note.name }}</h2>
 
-    {% if note.title %}
-    <div class="flex">
-    <div class="pr2"></div>
-    <div>{{ note.title }}</div>
+        {% if note.title %}
+        <div class="flex">
+        <div class="pr2"></div>
+        <div>{{ note.title }}</div>
     </div>
     {% endif %}
 
     {% if note.body %}
     <div class="flex">
-    <div class="pr2"></div>
-    <div>{{ note.body }}</div>
+        <div class="pr2"></div>
+        <div>{{ note.body }}</div>
     </div>
     {% endif %}
 
     <p>
         <a href="{% url 'edit_note' pk=note.pk %}">Edit Note</a><br>    
         <a class="red" href="{% url 'delete_note' pk=note.pk %}">Delete Note</a><br>
-        <a href="{% url 'notes_details' pk=note.pk %}">More Information</a><br>
+        <a href="{% url 'notes_details' pk=note.pk %}">More Information</a><br> 
     </p>
-</div>
-{% endfor %}
+    </div>
+    {% endfor %}
 </div>  
 
 {% endblock %}

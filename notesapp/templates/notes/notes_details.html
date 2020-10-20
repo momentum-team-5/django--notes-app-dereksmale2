@@ -4,9 +4,9 @@
 <h1>{{ note.title }}</h1>
 
 <div class="flex flex-wrap">
-<div class="w-33 pa3">
-    <p>Note created at {{ note.created_at }}</p>
-    <p>Note updated at {{ note.updated_at }}</p>
+    <div class="w-33 pa3">  
+        <p>{{ note.title }} created at {{ note.created_at }}</p>
+        <p>{{ note.title }} last updated at {{ note.updated_at }}</p>
     </div>
 </div>  
 
