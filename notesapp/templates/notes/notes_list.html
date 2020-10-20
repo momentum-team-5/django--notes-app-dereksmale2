@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>All Contacts</h1>
+
+<p><a href="{% url 'add_contact' %}">Add New Contact</a></p>
+
+<div class="flex flex-wrap">
+{% for contact in contacts %}
+<div class="w-33 pa3">
+    <h2>{{ note.name }}</h2>
+
+    {% if note.title %}
+    <div class="flex">
+    <div class="pr2"></div>
+    <div>{{ note.title }}</div>
+    </div>
+    {% endif %}
+
+    {% if note.body %}
+    <div class="flex">
+    <div class="pr2"></div>
+    <div>{{ note.body }}</div>
+    </div>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'edit_note' pk=contact.pk %}">Edit Note</a><br>    
+        <a class="red" href="{% url 'delete_note' pk=contact.pk %}">Delete Note</a><br>
+        <a href="{% url 'notes_details' pk=contact.pk %}">More Information</a><br>
+        <a href="{% url 'add_note' pk=contact.pk %}">Add Note</a>
+    </p>
+</div>
+{% endfor %}
+</div>  
+
+{% endblock %}
