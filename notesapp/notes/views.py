@@ -11,15 +11,8 @@ def notes_list(request):
 
 def notes_details(request, pk):
     note = get_object_or_404(Note, pk=pk)
-    note_filter = Note.objects.filter(note=note)
 
-    if note_filter:
-        note_filter = note_filter[0]
-
-    else:
-        note_filter = None
-
-    return render(request, "notes/notes_detail.html", {"note": note, "note_filter": note_filter})
+    return render(request, "notes/notes_details.html", {"note": note})
 
 
 def add_note(request):
