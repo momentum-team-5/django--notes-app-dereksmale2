@@ -27,7 +27,6 @@ def add_note(request):
         form = NoteForm(data=request.POST)
         if form.is_valid():
             note = form.save(commit=False)
-            note.author = request.user
             form.save()
             return redirect(to='notes_list')
 
@@ -91,32 +90,14 @@ def search(request):
     if request.method == "GET":
         form = SearchForm()
 
-    else:
+    elif request.method == "POST":
         form = SearchForm(data=request.POST)
 
-        if form.is_valid():
-            note = Note.objects.all()
-            title = form.cleaned_data['title']
-            body = form.cleaned_data['body']
-            order_by = form.cleaned_data['order_by']
+    if form.is_valid():
+        title = form.cleaned_data['title']
+        order_by = form.cleaned_data['order_by']
+        note = Note.objects.filter(title__contains=title).order_by(order_by)
 
-            if title:
-                title_search_type = form.cleaned_data['title_search_type']
-
-                if title_search_type == "starts with":
-                    note = note.filter(title__startswith=title)
-
-                elif title_search_type == "includes":
-                    note = note.filter(title__contains=title)
-
-                else:
-                    note = note.filter(title__exact=title)
-
-            if body:
-                note = note.filter(body__contains=body)
-
-            note = note.order_by(order_by)
-
-            return render(request, "notes/search_results.html", {"note": note})
+        return render(request, "notes/search_results.html", {"note": note})
 
     return render(request, "notes/search.html", {"form": form})
