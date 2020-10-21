@@ -62,7 +62,7 @@ def delete_note(request, pk):
     return render(request, "notes/delete_note.html", {"note": note})
 
 
-def contact(request):
+def contact_us(request):
     if request.method == "GET":
         form = ContactForm()
 
@@ -70,13 +70,18 @@ def contact(request):
         form = ContactForm(data=request.POST)
 
         if form.is_valid():
-            send_confirmation_to = form.cleaned_data['email']
+            user_email = form.cleaned_data['email']
             message_title = form.cleaned_data['title']
             message_body = form.cleaned_data['body']
 
-            send_mail("Your message was recieved", "Your messaged was recieved. Expect a response shortly!", recipient_list=[send_confirmation_to])
+            send_mail("Your message was recieved", "Your messaged was recieved. Expect a response shortly!", None, recipient_list=[user_email])
             mail_admins(message_title, message_body, fail_silently=True)
 
+            success(request, "Your message was sent. Check your email for confirmation.")
+
             return redirect(to='notes_list')
+
+        else:
+            error("Your message couldn't be sent.")
 
     return render(request, "contact_us.html", {"form": form})

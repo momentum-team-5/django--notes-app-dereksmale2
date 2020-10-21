@@ -128,4 +128,18 @@ STATICFILES_DIRS = [
 ]
 
 
-LOGIN_REDIRECT_URL = "/"
+SIMPLE_BACKEND_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+# how to run local email server
+# python -m smtpd -n -c DebuggingServer 
+# localhost:1025
+
+# how to run gmail server
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'your-username@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your-password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
