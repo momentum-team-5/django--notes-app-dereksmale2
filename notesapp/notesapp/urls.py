@@ -14,14 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from notes import views as notes_views
+from django.conf import settings
+from django.urls import include, path
+from notes import views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', notes_views.notes_list, name='notes_list'),
-    path('notes/<int:pk>', notes_views.notes_details, name='notes_details'),
-    path('notes/add/', notes_views.add_note, name='add_note'),
-    path('notes/<int:pk>/edit/', notes_views.edit_note, name='edit_note'),
-    path('notes/<int:pk>/delete/', notes_views.delete_note, name='delete_note'),
+    path('contact/', views.contact, name='contact_us'),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('', views.notes_list, name='notes_list'),
+    path('notes/<int:pk>', views.notes_details, name='notes_details'),
+    path('notes/add/', views.add_note, name='add_note'),
+    path('notes/<int:pk>/edit/', views.edit_note, name='edit_note'),
+    path('notes/<int:pk>/delete/', views.delete_note, name='delete_note'),
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

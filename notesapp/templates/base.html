@@ -7,8 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Notes{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/tachyons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body class="sans-serif pv3 ph2">
+    <header>
+        <nav>
+            <a href="{% url 'notes_list' %}">Browse Notes</a>
+            <a href="{% url 'contact_us' %}">Contact Us</a>
+                {% if user.is_authenticated %}
+                    <a href="/accounts/logout/">Logout</a>
+                {% else %}
+                    <a href="/accounts/login/">Login</a>
+                    <a href="/accounts/register/">Create Account</a>
+                {% endif %}
+        </nav>
+    </header>
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
     <div class="mw9 center">
         {% block content %}
         {% endblock %}
