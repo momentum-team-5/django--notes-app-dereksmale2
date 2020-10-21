@@ -98,6 +98,6 @@ def search(request):
         order_by = form.cleaned_data['order_by']
         note = Note.objects.filter(title__contains=title).order_by(order_by)
 
-        return render(request, "notes/search_results.html", {"note": note})
+        return render(request, "notes/search_results.html", {"notes": note})
 
     return render(request, "notes/search.html", {"form": form})
