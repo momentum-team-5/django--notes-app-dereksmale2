@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h3>Search Results</h3>
+
+<div class="notes-container">
+    
+    {% for note in notes %}
+    <div class='note-container'>
+        <h4>{{ note.title }}</h4>
+        <pre class='note-body'>{{ note.body }}</pre>
+        <p><a href="{% url 'notes_details' pk=note.pk %}">More information</a></p>
+    </div>
+
+{% endfor %}
+
+</div>
+{% endblock %}

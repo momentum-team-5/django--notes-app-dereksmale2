@@ -3,7 +3,7 @@ from django.core.mail import send_mail, mail_admins
 from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
 from .models import Note
-from .forms import NoteForm, ContactForm
+from .forms import NoteForm, ContactForm, SearchForm
 
 
 def notes_list(request):
@@ -85,3 +85,38 @@ def contact_us(request):
             error("Your message couldn't be sent.")
 
     return render(request, "contact_us.html", {"form": form})
+
+
+def search(request):
+    if request.method == "GET":
+        form = SearchForm()
+
+    else:
+        form = SearchForm(data=request.POST)
+
+        if form.is_valid():
+            note = Note.objects.all()
+            title = form.cleaned_data['title']
+            body = form.cleaned_data['body']
+            order_by = form.cleaned_data['order_by']
+
+            if title:
+                title_search_type = form.cleaned_data['title_search_type']
+
+                if title_search_type == "starts with":
+                    note = note.filter(title__startswith=title)
+
+                elif title_search_type == "includes":
+                    note = note.filter(title__contains=title)
+
+                else:
+                    note = note.filter(title__exact=title)
+
+            if body:
+                note = note.filter(body__contains=body)
+
+            note = note.order_by(order_by)
+
+            return render(request, "notes/search_results.html", {"note": note})
+
+    return render(request, "notes/search.html", {"form": form})
