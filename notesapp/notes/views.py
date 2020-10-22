@@ -73,10 +73,10 @@ def contact_us(request):
             message_title = form.cleaned_data['title']
             message_body = form.cleaned_data['body']
 
-            send_mail("Your message was recieved", "Your messaged was recieved. Expect a response shortly!", None, recipient_list=[user_email])
+            send_mail("Your message was recieved", "Your messaged was recieved.", None, recipient_list=[user_email])
             mail_admins(message_title, message_body, fail_silently=True)
 
-            success(request, "Your message was sent. Check your email for confirmation.")
+            success(request, "Your message was sent to a local server for testing, thank you!")
 
             return redirect(to='notes_list')
 
